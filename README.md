@@ -33,13 +33,13 @@ It wrote the code, ran away, and now the game is unplayable.
 
 Describe your fixed game in numbered steps so a reader can follow along without watching a video:
 
-1. <!--  User enters a guess of 23 -->
-2. <!-- Game returns "Go HIGHER!" -->
-3. <!-- User enters a guess of 80 → "Too High" -->
-4. <!-- Game returns "Go LOWER!" --> 
-5. <!--  Score updates correctly after each guess -->
+1. The user enters a guess of 23.
+2. The game returns "📈 Go HIGHER!" because 23 is below the secret.
+3. The user enters a guess of 80, which is too high.
+4. The game returns "📉 Go LOWER!" to point in the correct direction.
+5. The score updates after each guess.
+6. The game ends with a win when the correct number is guessed.
 
-6. <!--  Game ends after the correct guess >
 **Screenshot** *(optional)*: <!-- Insert a screenshot of your fixed, winning game here -->
 
 ## 🧪 Test Results
