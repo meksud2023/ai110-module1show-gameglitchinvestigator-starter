@@ -46,11 +46,19 @@ I used an AI coding assistant (Claude Code in agent mode inside VS Code) as a de
   and what it showed you about your code.
 - Did AI help you design or understand any tests? How?
 
+I decided a bug was really fixed by checking it two ways: running the automated tests and then playing the game in the browser to see the behavior with my own eyes. A bug only counted as fixed when both agreed — for example, the hint bug was only "done" once `pytest` passed and a guess above the secret actually told me to go LOWER in the app.
+
+The most useful test I ran was `pytest tests/`, which showed 6 passing tests. The regression test, `test_hints_are_not_inverted`, that checks several guesses above the secret return "Too High" and several below return "Too Low." This mattered because the same test would have *failed* on the original broken code (which returned a tuple and swapped the hints), so a green result proves the fix actually addresses that specific bug rather than just happening to pass.
+
+AI helped me both design and understand the tests. It suggested the regression test that pins the hint direction and explained why a good test should fail on the old code, not just pass on the new code. It also helped me understand a confusing `ModuleNotFoundError` — it explained that `pytest` wasn't adding the project root to the import path, and we fixed it by adding a `conftest.py`.
+
 ---
 
 ## 4. What did you learn about Streamlit and state?
 
 - How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
+
+I'd explain it like this: every time you interact with a Streamlit app — clicking a button, typing in a box — Streamlit re-runs the *entire* script from top to bottom, like refreshing a page. That means any normal variable gets reset to its starting value on every click, which is why the secret number kept "resetting" and the game felt glitchy. `st.session_state` is Streamlit's memory box that survives those reruns: anything you store there (the secret, the score, the attempt count) stays put between clicks. The big lesson for me was that in Streamlit you have to be deliberate about what lives in session state versus what gets recalculated, because the script running again is the normal behavior, not a bug.
 
 ---
 
@@ -60,3 +68,5 @@ I used an AI coding assistant (Claude Code in agent mode inside VS Code) as a de
   - This could be a testing habit, a prompting strategy, or a way you used Git.
 - What is one thing you would do differently next time you work with AI on a coding task?
 - In one or two sentences, describe how this project changed the way you think about AI generated code.
+
+One habit I want to keep is writing a regression test for every bug I fix, a test that would have failed on the broken code, so I can prove the fix works and catch it if it ever breaks again. The thing I'd do differently next time is to run the tests myself instead of trusting the AI's "all tests pass," because I learned that the exact command matters (`pytest` vs. `python -m pytest` gave different results and hid a real import bug). Overall, this project changed how I think about AI-generated code: it can write a lot of confident, professional-looking code that is quietly broken, so I now treat AI output as a draft to verify and test, not as a finished answer to trust.
