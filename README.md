@@ -44,9 +44,19 @@ Describe your fixed game in numbered steps so a reader can follow along without 
 ## 🧪 Test Results
 
 ```
-# Paste your pytest output here, e.g.:
-# pytest tests/
-# ========================= X passed in 0.XXs =========================
+$ pytest tests/ -v
+============================= test session starts =============================
+platform win32 -- Python 3.10.1, pytest-9.0.3, pluggy-1.6.0
+collected 6 items
+
+tests/test_game_logic.py::test_winning_guess PASSED                      [ 16%]
+tests/test_game_logic.py::test_guess_too_high PASSED                     [ 33%]
+tests/test_game_logic.py::test_guess_too_low PASSED                      [ 50%]
+tests/test_game_logic.py::test_too_high_hint PASSED                      [ 66%]
+tests/test_game_logic.py::test_hints_are_not_inverted PASSED             [ 83%]
+tests/test_game_logic.py::test_check_guess_returns_plain_string PASSED   [100%]
+
+============================== 6 passed in 0.02s =============================
 ```
 
 ## 🚀 Stretch Features
